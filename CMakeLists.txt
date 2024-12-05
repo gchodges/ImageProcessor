@@ -10,3 +10,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add the executable
 add_executable(ImageProcessor src/main.cpp)
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+# Test executable
+add_executable(ImageProcessorTests 
+    test/PixelTest.cpp
+    # test/ImageTest.cpp
+)
+
+target_link_libraries(ImageProcessorTests 
+    ${GTEST_LIBRARIES} 
+    pthread
+)
+
+set_target_properties(ImageProcessorTests PROPERTIES LINK_FLAGS "-Wl,-subsystem,console")
